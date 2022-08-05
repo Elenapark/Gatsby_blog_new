@@ -7,17 +7,18 @@ const theme = createTheme({
   palette: {
     primary: {
       light: teal[200],
-      main: teal[500],
+      main: teal[400],
       dark: teal[900],
     },
     secondary: {
       light: deepOrange[200],
-      main: deepOrange[500],
+      main: deepOrange[400],
       dark: deepOrange[900],
     },
   },
   typography: {
     fontFamily: ["Eulyoo1945", "serif"].join(","),
+    htmlFontSize: 13,
   },
   components: {
     MuiCssBaseline: {

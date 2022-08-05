@@ -1,26 +1,61 @@
 import React from "react";
 import Layout from "../components/layout";
 import { graphql } from "gatsby";
-import { List, ListItem } from "@mui/material";
+import { List, ListItem, Typography } from "@mui/material";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
-interface DataProps {
+interface FileNodeProps {
   data: {
     allFile: {
       nodes: BlogTitle[];
     };
   };
 }
+
 interface BlogTitle {
   name: string;
 }
 
-const BlogPage = ({ data: { allFile } }: DataProps) => {
+interface MdxNodeProps {
+  data: {
+    allMdx: {
+      nodes: MdxBlogInfo[];
+    };
+  };
+}
+
+interface MdxBlogInfo {
+  frontmatter: {
+    date: string;
+    title: string;
+  };
+  id: string;
+  body: string;
+}
+
+const BlogPage = ({ data: { allMdx } }: MdxNodeProps) => {
+  console.log(allMdx);
   return (
     <Layout pageTitle="Blog">
-      <List>
-        {allFile.nodes.map((file, idx) => {
+      <List component="article">
+        {/* {allFile.nodes.map((file, idx) => {
           return (
             <ListItem key={`file ${file.name} ${idx}`}>{file.name}</ListItem>
+          );
+        })} */}
+        {allMdx.nodes.map((mdxNode) => {
+          return (
+            <>
+              <ListItem key={`mdxNode ${mdxNode.id}`} sx={ListItemSx}>
+                <Typography variant="h6" mr={1}>
+                  {mdxNode.frontmatter.title}
+                </Typography>
+                <Typography variant="body2">
+                  {mdxNode.frontmatter.date}
+                </Typography>
+              </ListItem>
+              <MDXRenderer>{mdxNode.body}</MDXRenderer>
+            </>
           );
         })}
       </List>
@@ -33,12 +68,39 @@ export default BlogPage;
 //Page 컴포넌트에서는 components 폴더에서와 같이
 //useStaticQuery를 쓰지않고 다른 방식으로 데이터를 가져옴.
 
+// allFileNode
+// export const query = graphql`
+//   query {
+//     allFile {
+//       nodes {
+//         name
+//       }
+//     }
+//   }
+// `;
+
+// gatsby-source-filesystem => gatsby-transformer-plugin-mdx로 전환하는 이유
+// the filesystem source plugin lets you query data about files,
+// but it doesn’t let you use the data inside the files themselves.
+// To make this possible, Gatsby supports transformer plugins,
+// which take the raw content from source plugins and transform it into something more usable.
+
+// allMdxNode
 export const query = graphql`
   query {
-    allFile {
+    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
       nodes {
-        name
+        frontmatter {
+          date(formatString: "MMMM.D.YYYY")
+          title
+        }
+        id
+        body
       }
     }
   }
 `;
+
+const ListItemSx = {
+  bgcolor: "primary.light",
+};
