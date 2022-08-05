@@ -24,10 +24,14 @@
     "@mui/material": "^5.9.3",
     "@types/react-helmet": "^6.1.5",
     "gatsby": "^4.20.0",
+    "gatsby-plugin-image": "^2.20.0",
     "gatsby-plugin-material-ui": "^4.0.2",
+    "gatsby-plugin-sharp": "^4.20.0",
+    "gatsby-source-filesystem": "^4.20.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "styled-reset": "^4.4.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.45",

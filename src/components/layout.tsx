@@ -1,35 +1,77 @@
 import React from "react";
-import { Link } from "gatsby";
-import { Box, ThemeProvider, Typography } from "@mui/material";
+import { Link, useStaticQuery, graphql } from "gatsby";
+import styled from "@emotion/styled";
+import {
+  AppBar,
+  Box,
+  List,
+  MenuItem,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 import "@fontsource/gowun-batang";
 import theme from "../styles/MuiTheme";
 import { CssBaseline } from "@mui/material";
-import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
+
+interface PageProps {
+  title: string;
+  path: string;
+}
+
+interface DataProps {
+  site: {
+    siteMetadata: {
+      title: string;
+    };
+  };
+}
+
+const pages: PageProps[] = [
+  { title: "Home", path: "/" },
+  { title: "About", path: "/about" },
+  { title: "Blog", path: "/blog" },
+];
 
 const Layout = ({
   pageTitle,
   children,
 }: {
-  pageTitle: string;
+  pageTitle?: string;
   children: React.ReactNode;
 }) => {
+  const data: DataProps = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box>
-        <title>{pageTitle}</title>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
+      <title>
+        {pageTitle ?? "Home"} | {data.site.siteMetadata.title}
+      </title>
+      <Box sx={{ maxWidth: "1400px", margin: "0 auto" }}>
+        <AppBar position="static">
+          <Box sx={BoxSx}>
+            <Typography>{data.site.siteMetadata.title}👩🏻‍💻</Typography>
+            <List sx={{ display: "flex" }}>
+              {pages.map((page) => {
+                return (
+                  <MenuItem key={`page ${page.title}`}>
+                    <StyledLink to={page.path}>{page.title}</StyledLink>
+                  </MenuItem>
+                );
+              })}
+            </List>
+          </Box>
+        </AppBar>
         <main>
-          <Typography variant="h1">{pageTitle}</Typography>
+          <Typography variant="h3">{pageTitle}</Typography>
           {children}
         </main>
       </Box>
@@ -38,3 +80,15 @@ const Layout = ({
 };
 
 export default Layout;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #fff;
+`;
+
+const BoxSx = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "0 20px",
+};
