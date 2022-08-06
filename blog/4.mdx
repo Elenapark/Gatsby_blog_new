@@ -1,0 +1,14 @@
+---
+title: "Multiple Routes"
+date: "2022-08-17"
+author: "sungeun park"
+---
+
+When you build your site, Gatsby looks at the page components in your src/pages directory and creates new pages for your site.
+
+src/pages/index.js lives at the / route.
+src/pages/blog.js lives at the /blog route.
+src/pages/{mdx.slug}.js gets turned into multiple routes - one for each MDX node in the data layer.
+Gatsby uses the MDX node with slug my-first-post to build a page that lives at the /my-first-post route.
+Gatsby uses the MDX node with slug another-post to build a page that lives at the /another-post route.
+Gatsby uses the MDX node with slug yet-another-post to build a page that lives at the /yet-another-post route.

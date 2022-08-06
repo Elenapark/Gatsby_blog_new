@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import { graphql } from "gatsby";
 import { List, ListItem, Typography } from "@mui/material";
 import { MDXRenderer } from "gatsby-plugin-mdx";
@@ -102,5 +102,5 @@ export const query = graphql`
 `;
 
 const ListItemSx = {
-  bgcolor: "primary.light",
+  //   bgcolor: "primary.light",
 };
