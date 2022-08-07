@@ -5,6 +5,7 @@ import EulyooSemiBold from "./fonts/Eulyoo1945-SemiBold.woff2";
 
 const theme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
       light: teal[200],
       main: teal[400],
