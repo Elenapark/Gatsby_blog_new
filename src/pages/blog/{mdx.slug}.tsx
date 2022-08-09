@@ -24,8 +24,6 @@ interface DataProps {
 }
 
 const BlogPost = ({ data }: DataProps) => {
-  console.log(data);
-
   //  getImage 함수를 이용해서 data.mdx.frontmatter.hero_image.childImageSharp.gatsbyImageData를 편하게 받을 수 있음
   const image = getImage(data.mdx.frontmatter.image);
   return (

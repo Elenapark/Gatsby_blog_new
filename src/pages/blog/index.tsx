@@ -47,7 +47,10 @@ const BlogPage = ({ data: { allMdx } }: MdxNodeProps) => {
           return (
             <>
               <ListItem key={`mdxNode ${mdxNode.id}`} sx={ListItemSx}>
-                <Link to={`/blog/${mdxNode.slug}`}>
+                <Link
+                  to={`/blog/${mdxNode.slug}`}
+                  style={{ color: "#fff", textDecoration: "none" }}
+                >
                   <Typography variant="h6" mr={1}>
                     {mdxNode.frontmatter.title}
                   </Typography>
